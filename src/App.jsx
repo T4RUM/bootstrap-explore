@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Myfooter from "./components/Myfooter";
 import Politica from "./pages/Politica";
+import NovaTarefa from "./pages/NovaTarefa";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/ajuda" element={<Ajuda />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/politicadeprivacidade" element={<Politica />} />
+          <Route path="/novatarefa" element={<NovaTarefa />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

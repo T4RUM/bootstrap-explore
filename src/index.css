@@ -1,2 +1,10 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+.form-section {
+  width: 230px;
+  margin: 16px auto;
+}
+
+.invalid{
+  color: red;
+}
