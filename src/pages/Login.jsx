@@ -1,5 +1,10 @@
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate, Navigate } from "react-router-dom";
+import { entrarGoogle, loginUsuario } from "../firebase/auth";
+import { UsuarioContext } from "../contexts/UsuarioContext";
+import { useContext } from "react";
 
 function Login() {
   const {
@@ -7,10 +12,30 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const usuario = useContext(UsuarioContext);
 
   function entrar(data) {
-    // data é um objeto com os dados do formulário
-    console.log(data);
+    loginUsuario(data.email, data.senha)
+      .then(() => {
+        toast.success("Bem vindo!");
+        navigate("/tarefas");
+      })
+      .catch(() => {
+        toast.error("Email e/ou Senha incorreta!");
+      });
+  }
+
+  function handleEntrarGoogle() {
+    entrarGoogle().then(() => {
+      toast.success("Bem vindo!");
+      navigate("/tarefas");
+    });
+  }
+
+  // Nesse caso impedimos do usuario ver a pagina de login estando logado
+  if (usuario !== null) {
+    return <Navigate to="/tarefas" />;
   }
 
   return (
@@ -53,7 +78,12 @@ function Login() {
             <Button variant="dark" className="mt-1 w-100" type="submit">
               Entrar
             </Button>
-            <Button variant="danger" className="mt-1 w-100" type="button">
+            <Button
+              variant="danger"
+              className="mt-1 w-100"
+              type="button"
+              onClick={handleEntrarGoogle}
+            >
               Entrar com o Google
             </Button>
           </div>

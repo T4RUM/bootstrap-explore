@@ -1,5 +1,10 @@
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { addTarefa } from "../firebase/tarefas";
+import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UsuarioContext } from "../contexts/UsuarioContext";
 
 function NovaTarefa() {
   const {
@@ -8,8 +13,27 @@ function NovaTarefa() {
     formState: { errors },
   } = useForm();
 
+  const usuario = useContext(UsuarioContext);
+  const navigate = useNavigate();
+
   function salvarTarefa(data) {
-    console.log(data);
+    // Os dados do formulário são passados para a função de inserir
+    // Quando foi concluido e inserido os dados no banco de dados ENTÃO (then) aparece o toast
+    // catch = para mostrar um erro caso não de certo
+    // Isso é uma função anonima que não precisa passar um nome só a arrow function
+    // Novo campo do documento que associa o usuario e tarefa que ele criou
+    data.idUsuario = usuario.uid;
+    addTarefa(data)
+      .then(() => {
+        toast.success("Tarefa adicionada com sucesso");
+        // Redirecionar o usário para /tarefas
+        navigate("/tarefas");
+      })
+      .catch(() => toast.error("Um erro acconteceu ao adicionar tarefa!"));
+  }
+
+  if (usuario === null) {
+    return <Navigate to="/login" />;
   }
 
   return (
