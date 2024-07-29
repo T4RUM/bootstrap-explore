@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "0000000000000000000000000000",
-  authDomain: "my-task-52526.firebaseapp.com",
-  projectId: "my-task-52526",
-  storageBucket: "my-task-52526.appspot.com",
-  messagingSenderId: "92753903381",
-  appId: "0000000000000000000000",
+  apiKey: "YOUR_API_KEY_HERE",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
 // app => objeto com todas as configurações do firebase
